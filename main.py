@@ -11,16 +11,16 @@ from maps import get_map
 map = Map()
 robots = []
 routes = []
-_map = get_map(0)
+_map = get_map(1)
 
 for i in range(10):
-    line = _map[i]
+    line = _map["map"][i]
     map.update_map(line, i)
 
-robot_count = int(1)
+robot_count = _map["robot_count"]
 
 for i in range(robot_count):
-    inputs = "3 4 L".split()
+    inputs = _map["start_pos"][i]
     x = int(inputs[0])
     y = int(inputs[1])
     direction = inputs[2]
