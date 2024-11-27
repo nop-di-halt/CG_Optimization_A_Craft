@@ -3,21 +3,24 @@ import math
 import numpy as np
 from map import Map
 from robot import Robot
+from maps import get_map
 
 # Auto-generated code below aims at helping you parse
 # the standard input according to the problem statement.
+
 map = Map()
 robots = []
 routes = []
+_map = get_map(0)
 
 for i in range(10):
-    line = input()
+    line = _map[i]
     map.update_map(line, i)
 
-robot_count = int(input())
+robot_count = int(1)
 
 for i in range(robot_count):
-    inputs = input().split()
+    inputs = "3 4 L".split()
     x = int(inputs[0])
     y = int(inputs[1])
     direction = inputs[2]

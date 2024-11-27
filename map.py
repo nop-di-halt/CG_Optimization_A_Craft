@@ -15,6 +15,9 @@ class Map:
     def set_arrow(self, x, y, direction):
         self.map[x, y] = direction
 
+    def reset(self, x, y):
+        self.map[x, y] = "#"
+
     def can_move_next(self, robot):
         x = robot.x
         y = robot.y
