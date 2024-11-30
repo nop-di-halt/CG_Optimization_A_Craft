@@ -34,7 +34,11 @@ class Robot:
                 if self.__is_starting:
                     self.__is_starting = False
                 continue
-
+            
+            if not self.__can_set_arrow():
+                self.can_move = False
+                break
+            
             self.can_move = True
             prev_x = self.x
             prev_y = self.y
@@ -60,7 +64,10 @@ class Robot:
 
     def get_route(self):
         self.__routes.sort(key=lambda r: r.get_score(), reverse=True)
-        return (self.__routes[0].get_score(), self.__routes[0].get_actions())
+        route = self.__routes[0]
+        for arr in route.arrows:
+            self.map.set_arrow(arr.x, arr.y, arr.direction)
+        return (route.get_score(), route.get_actions())
 
     def visited(self, x, y, direction):
         return any(
@@ -69,9 +76,6 @@ class Robot:
 
     def has_arrow(self, x, y):
         return any((x, y) == arr.get_position() for arr in self.__current_route.arrows)
-
-    def get_start(self):
-        return (self.start_x, self.start_y)
 
     def __get_line(self):
         while self.can_move:
@@ -105,3 +109,8 @@ class Robot:
 
         if self.direction == "D":
             self.y = self.y + 1 if self.y < 9 else 0
+
+    def __can_set_arrow(self):
+        return not any(
+            (self.x, self.y) == m.get_position() for m in self.__current_route.moves
+        )
