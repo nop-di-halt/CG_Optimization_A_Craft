@@ -16,34 +16,37 @@ class Map:
         self.map[x, y] = direction
 
     def reset(self, x, y):
-        self.map[x, y] = "#"
+        self.map[x, y] = "."
 
     def can_move_next(self, robot):
         x = robot.x
         y = robot.y
+        current_direction = robot.direction
         if self.map[x, y] in "RLUD":
             robot.direction = self.map[x, y]
 
         direction = robot.direction
 
         if robot.visited(x, y, direction):
+            robot.can_move = False
+            robot.direction = current_direction
             return False
 
         if direction == "R":
             x = x + 1 if x < 18 else 0
-            return self.map[x, y] not in "#"
 
         if direction == "L":
             x = x - 1 if x > 0 else 18
-            return self.map[x, y] not in "#"
 
         if direction == "U":
             y = y - 1 if y > 0 else 9
-            return self.map[x, y] not in "#"
 
         if direction == "D":
             y = y + 1 if y < 9 else 0
-            return self.map[x, y] not in "#"
 
-    def can_set_arrow(self, x, y):
-        return self.map[x, y] not in "RLUD"
+        if robot.has_arrow(x, y):
+            robot.can_move = False
+            robot.direction = current_direction
+            return False
+
+        return self.map[x, y] != "#"

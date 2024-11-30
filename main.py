@@ -30,9 +30,9 @@ for i in range(robot_count):
 for r in robots:
     r.build_route()
     route = r.get_route()
-    print(f"{r.id} {route}", file=sys.stderr, flush=True)
-    if route:
-        routes.append(route)
+    print(f"{r.id} score: {route[0]} {route[1]}", file=sys.stderr, flush=True)
+    if route[1]:
+        routes.append(route[1])
 # Write an action using print
 # To debug: print("Debug messages...", file=sys.stderr, flush=True)
 # print(map.get_at(3, 4), file=sys.stderr, flush=True)

@@ -6,3 +6,6 @@ class Move:
 
     def get_move(self):
         return (self.x, self.y, self.direction)
+
+    def get_position(self):
+        return (self.x, self.y)
