@@ -33,12 +33,13 @@ class Robot:
             if not self.map.can_move_next(self):
                 if self.__is_starting:
                     self.__is_starting = False
+                self.can_move = False
                 continue
-            
+
             if not self.__can_set_arrow():
                 self.can_move = False
                 break
-            
+
             self.can_move = True
             prev_x = self.x
             prev_y = self.y
