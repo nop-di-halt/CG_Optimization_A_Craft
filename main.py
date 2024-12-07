@@ -11,7 +11,7 @@ from maps import get_map
 map = Map()
 robots = []
 routes = []
-_map = get_map(2)
+_map = get_map(3)
 
 for i in range(10):
     line = _map["map"][i]

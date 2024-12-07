@@ -27,11 +27,6 @@ class Map:
 
         direction = robot.direction
 
-        if robot.visited(x, y, direction):
-            robot.can_move = False
-            robot.direction = current_direction
-            return False
-
         if direction == "R":
             x = x + 1 if x < 18 else 0
 
@@ -43,6 +38,14 @@ class Map:
 
         if direction == "D":
             y = y + 1 if y < 9 else 0
+
+        if self.map[x, y] in "RLUD":
+            direction = self.map[x, y]
+
+        if robot.visited(x, y, direction):
+            robot.can_move = False
+            robot.direction = current_direction
+            return False
 
         if robot.has_arrow(x, y):
             robot.can_move = False

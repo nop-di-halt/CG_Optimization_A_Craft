@@ -12,9 +12,10 @@ class Robot:
         self.map = map
         self.start_x = x
         self.start_y = y
-        self.__current_route = Route()
-        self.__is_starting = True
         self.can_move = True
+        self.__start_direction = direction
+        self.__is_starting = True
+        self.__current_route = Route()
         self.__routes = []
 
     def build_route(self):
@@ -45,7 +46,7 @@ class Robot:
             prev_y = self.y
             prev_route = self.__current_route
             self.__current_route = Route(prev_route)
-            if not self.__is_starting:
+            if not self.__is_start_pos(d):
                 self.map.set_arrow(self.x, self.y, d)
                 self.__current_route.set_arrow(Move(self.x, self.y, self.direction))
             print(
@@ -114,4 +115,11 @@ class Robot:
     def __can_set_arrow(self):
         return not any(
             (self.x, self.y) == m.get_position() for m in self.__current_route.moves
+        )
+
+    def __is_start_pos(self, direction):
+        return (
+            self.x == self.start_x
+            and self.y == self.start_y
+            and direction == self.__start_direction
         )
